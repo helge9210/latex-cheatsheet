@@ -1,0 +1,71 @@
+\section{Fundations of finance I}
+\subsection*{Present value of annuities and perpetuities}
+Perpetuity: $\dfrac{CF}{r}$. \\ Growing perpetuity: $\dfrac{CF}{r -g}$. \\ Annuity: $\dfrac{CF}{r}\cdot\left(1-\dfrac{1}{(1+r)^n}\right)$. \\ Annuity with growth: $\dfrac{CF}{r-g}\cdot\left(1 - \dfrac{(1+g)^n}{(1+r)^n}\right)$, where $r$ rate of return, $g$ growth rate, $n$ compounding periods
+\subsection*{Arrow-Debrew securities. State-space model}
+$\phi_1\dots\phi_n$ state prices \\
+$p_1\dots p_n$ state probabilities, \\ where $\sum p_i = 1$ \\
+$X_1\dots X_n$ state payouts \\
+$P = \sum\phi_i\cdot X_i  = \dfrac{E(P)}{(1+\bar{r})}, \\ \bar{r} = \dfrac{E(P) - P}{P} = \dfrac{\sum p_i \cdot X_i}{P} - 1, \\ E(P) = \sum p_i \cdot X_i = P\cdot(1+\bar{r})$, \\ where $P$ is price, $E(P)$ is expected payout, $\bar{r}$ is expected return.
+\subsection*{Discounted cash flow and rate of return}
+$r$ is rate of return, $r_f$ is risk-free rate of return, $r - r_f$ is excess return \\
+$ r = \dfrac{D_1 + P_1 - P_0}{P_0} = \dfrac{D_1 + P_1}{P_0} - 1, \\ P_0 = \dfrac{D_1+P_1}{1+r}$ \\
+With $g$ as growth rate, \\ $P=\dfrac{D}{r-g}, g=\dfrac{D_1}{D_0} - 1$ \\
+$\bar{r}=E(r)$, expected return, $\pi = \bar{r} - r_f$ is risk premium
+\subsection*{Relation between real and nominal cash flows}
+$r_{real}=\dfrac{1+r_{nominal}}{1+inflation} - 1$ \\
+For nominal flow,\\ $CF\cdot(1+r_{real})\cdot(1+inflation)$ \\
+For real flow, \\ $CF\cdot(1+r_{real})$
+\subsection*{Accounting}
+$I_t = EPS_t\times b$, where $b$ - plowback rate\\
+$EPS_{t+1} = EPS_t+I_t\times ROI_t$ \\
+$BVPS_{t+1}=BVPS_t + I_{t+1}$ \\
+$D_t=EPS_t\times (1-b_t)$ \\
+
+Growth rate $g = \dfrac{EPS_{t+1}}{EPS_t} - 1$ \\
+With growth $P_0 = \dfrac{D}{r-g}$\\
+Without growth $P^{nogrowth}_0 = \dfrac{D}{r}$, where $g = 0$ and $b = 0$ \\
+Growth opportunity $PVGO = P_0 - P^{nogrowth}_0$\\
+Horizon value estimation: \\
+$PV(Free cash flow) +$ $P/E$ ratio or $P/B$ ratio or $DCF$
+\subsection*{Risk}
+Expected utility \\
+$E[u(x)] = \sum p_i\cdot u(P_i)$, \\ where $p_i$ is probability, $P_i$ is payout \\
+Expected payoff \\
+$E(P) = \sum p_i\cdot P_i$ \\
+Relative risk aversion \\
+$RRA(W) = -\dfrac{W\cdot u''(W)}{u'(W)}$ \\
+Certainty equivalent $CE = u^{-1} (E(u(x)))$ \\
+$\pi$ - sure loss, risk premium, $W$ is investment amount, so \\
+$E(u(W\cdot (1+x))) = u(W\cdot (1-\pi))$\\
+or \\
+$CE = W\cdot (1-\pi), \pi =1 - \dfrac{CE}{W}$ \\
+
+$$
+\begin{cases}
+  +x\%, p_1 \\
+  -x\%, p_2
+\end{cases}
+$$ \\
+$E(u(W\cdot (1+x))) = \sum p_i \cdot u(W\cdot (1+x))$
+\subsection*{Interest rate conversion EAR/APR}
+$T$ - compounding interval, fraction \\
+yearly: $T = 1$ \\
+monthly: $T = \frac{1}{12}$ \\
+daily: $T = \frac{1}{365}$ \\
+$P$ - principal
+$n$ - number of payment periods, so period payment $M$ is \\
+$M = P\cdot \dfrac{APR\cdot (1+APR\cdot T)^n}{(1+APR\cdot T)^n - 1}$ \\
+$\lim_{T\to 0} 1 + EAR = e^{APR}$, so \\ $APR = \ln(1+EAR)$ \\
+$APR = \dfrac{(1+EAR)^T - 1}{T}$ \\
+$1+EAR = (1+T\cdot APR)^{\frac{1}{T}}$ \\
+\subsection*{Duration}
+Discount bond price $B_t = (1+y)^{-t}$, discounted bond duration is $t$, so modified duration is $MD = \dfrac{t}{1+y}$ \\
+Macaulay duration is \\ $D = \dfrac{1}{B}\cdot \sum_t \dfrac{CF_t}{(1+y)^t} \cdot t$\\
+Modified duration is $MD = \dfrac{D}{1+y}$\\
+Modified duration for perpetuity is $MD = \dfrac{1}{y}$, so Macaulay duration is $D=MD\cdot (1+y) = \dfrac{1+y}{y}$
+\subsection*{Duration based approximations}
+$\Delta{y}$ is the change in the interest rate, $P$ is the asset price. \\
+$\Delta{P} = -P\times MD\times \Delta{y}$ \\
+Convexity $CX$ is \\
+$CX = \dfrac{1}{2}\cdot \dfrac{1}{P}\cdot \dfrac{1}{(1+y)^2} \cdot \sum_{t} PV(CF_t) \cdot t \cdot (t+1)$, convexity based approximation is\\
+$\Delta{P} = P\times (-MD \cdot \Delta{y} + CX\cdot \Delta{y}^2)$
