@@ -1,6 +1,6 @@
 \section{Fundations of finance I}
 \subsection*{Present value of annuities and perpetuities}
-Perpetuity: $\dfrac{CF}{r}$. \\ Growing perpetuity: $\dfrac{CF}{r -g}$. \\ Annuity: $\dfrac{CF}{r}\cdot\left(1-\dfrac{1}{(1+r)^n}\right)$. \\ Annuity with growth: $\dfrac{CF}{r-g}\cdot\left(1 - \dfrac{(1+g)^n}{(1+r)^n}\right)$, where $r$ rate of return, $g$ growth rate, $n$ compounding periods
+Perpetuity: $\dfrac{CF}{r}$. \\ Growing perpetuity: $\dfrac{CF}{r -g}$. \\ Annuity: $\dfrac{CF}{r}\cdot\left(1-\dfrac{1}{(1+r)^n}\right)$. \\ Annuity with growth: \\ $\dfrac{CF}{r-g}\cdot\left(1 - \dfrac{(1+g)^n}{(1+r)^n}\right)$, \\where $r$ rate of return, $g$ growth rate, $n$ compounding periods
 \subsection*{Arrow-Debrew securities. State-space model}
 $\phi_1\dots\phi_n$ state prices \\
 $p_1\dots p_n$ state probabilities, \\ where $\sum p_i = 1$ \\
@@ -69,3 +69,43 @@ $\Delta{P} = -P\times MD\times \Delta{y}$ \\
 Convexity $CX$ is \\
 $CX = \dfrac{1}{2}\cdot \dfrac{1}{P}\cdot \dfrac{1}{(1+y)^2} \cdot \sum_{t} PV(CF_t) \cdot t \cdot (t+1)$, convexity based approximation is\\
 $\Delta{P} = P\times (-MD \cdot \Delta{y} + CX\cdot \Delta{y}^2)$
+\subsection*{Statistic}
+Excel functions: \\
+Sample mean $AVG()$ \\ 
+Standard deviation $STDEV.S()$ \\
+Covariance: \\ $cov = \dfrac{1}{T-1}\cdot \sum (r_A - \bar{r}_A)\cdot(r_B-\bar{r}_B)$ \\
+Corellation: $corr = \dfrac{cov}{SD(A)\cdot SD(B)}$\\
+Portfolio variance: \\
+$Var[P_{AB}] = \sum w_i^2 \cdot SD_i^2 + \sum_{i\neq j} 2w_iw_j \cdot SD_iSD_j \cdot corr_{ij}$, \\
+$Var[P] = \dfrac{1}{n}\cdot SD^2 + \left(1-\dfrac{1}{n}\right)\cdot corr\cdot SD \cdot SD$, \\
+where $SD$ is an average standard deviation
+\subsection*{APT}
+For well diversified portfolios: \\
+$\widetilde{r}_P = \bar{r}_P + \sum b_i\cdot f_i$, where $\bar{r}_P$ is expected return\\
+$\bar{r}_P - r_f = \lambda\cdot\beta_P$, where $r_f$ is risk free rate, $\lambda$ is risk price and $\beta_P$ is factor loading for single factor portfolio.
+Same $\bar{r}_P - r_f = \sum_i \lambda_i\cdot\beta_i$ for $i$ factors portfolio\\
+Return variance:\\
+$Var(r) = \sum_i \beta_i^2\cdot Var(f_i) + Var(\epsilon)$\\
+Covariance: \\
+$cov(A,B) = \sum_i\beta_{i,A}\beta_{i,B}\cdot Var(f_i)$
+\subsection*{APT in Excel}
+$r_i - r_f = \alpha + \beta_1(r_1-r_f) + \beta_2(r_2 - r_f) + \epsilon_i$
+To estimate $\beta_1$, $\beta_2$ and $\alpha$ (in this order): \\
+$=LINEST(\alpha, \beta_2, \beta_1)$ (reverse order)
+\subsection*{Capital investment}
+$CF = OpRev - OpEx - Tax - CapEx$\\
+$OpProfit = OpRev - OpEx$ \\
+$Tax = \tau\cdot OpProfit - \tau\cdot Depreciation$ \\
+$CF = (1-\tau)\cdot OpProfit - CapEx + \tau \cdot Depreciation$ \\
+Work capital:\\
+$WC = Inventory + A/R - A/P$, where $A/R$ accounts receivable, $A/P$ accounts payable\\
+$CF = (1-\tau)\cdot OpProfit + \tau\cdot Depreciation - CapEx - \Delta WC$
+\subsection*{Alternatives to NPV}
+Payback period\\
+Choose $S$ so $PB = S$, $\sum_{i=1}^S CF_i \geq - CF_0$ 
+Discounted payback period: \\
+$DPB = S$, $\sum_{i=1}^S \dfrac{CF_i}{(1+r)^i} \geq - CF_0$
+Internal rate of return (IRR) must satisfy: \\
+$0 = CF_0 +\sum_i\dfrac{CF_i}{(1+IRR)^i}$ \\
+PI:\\
+$PI = \dfrac{PV}{-CF_0}$
