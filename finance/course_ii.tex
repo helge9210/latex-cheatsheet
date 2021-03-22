@@ -1,0 +1,60 @@
+\section{Foundations of Modern Finance II}
+\subsection*{Forward rates}
+Forward interest rate between time $t-1$ and $t$:\\
+$f_t=\dfrac{B_{t-1}}{B_t} - 1=\dfrac{(1+r_t)^t}{(1+r_{t-1})^{t-1}} - 1$\\
+Expectation hypotesis (forward rates at time $0$ are predictors of future spot rates, which is not true):\\
+$E_0[\tilde{r}_1(t)] = \dfrac{\left(1+r_{t+1}(0)\right)^{t+1}}{\left(1+r_t(0)\right)^t} - 1= f_{t+1}$
+\subsection*{Forward pricing}
+Current spot price: $S_0$ \\
+Spot price at maturity (random): $\tilde{S}_T$\\
+Forward price (fixed at time $0$): $F_T$ \\
+Forward payoff is $\tilde{S}_T - F_T$\\
+$PV_0(\tilde{S}_T) = e^{-yT}S_0$,\\ where $y$ is dividend yield \\
+$F_T=e^{(r-y)T}S_0$, so dividend yield\\ $y = r- T\cdot ln\left(\dfrac{F_T}{S_0}\right)$\\
+Currency forward price is:\\
+$F_T=X_0\cdot e^{(r_{USD}-r_{CHF})\cdot T}$
+\subsection*{Futures pricing}
+Storage cost $Cost_t = c\cdot S_t$.\\
+Net convenience yield $\hat{y} = y - c$, so\\
+$H_T \approx F_T = e^{(r-\hat{y})T}S_0$\\
+Backwardation in terms of convenience yield vs interest rate:
+$\hat{y} - r = y - c -r > 0$\\
+Contango: $H_T > S_0e^{rT}$\\
+Backwardation: $H_T < S_0e^{rT}$
+\subsection*{Interest rate swaps}
+Fixed leg is paid at fixed rate $r_S$. \\
+Floating leg at the end of each period $t$ is paid as spot risk-free rate $\tilde{r}_1(t-1)$\\
+Forward rate to future spot rate:\\
+$PV_0[\tilde{r}_1(T)\ at\ T + 1] = PV_0[f_{T+1}\ at\ T + 1]$\\
+Present value of the fixed leg:
+$r_S\times\sum_{u=1}^TB_u$\\
+Present value of the floating leg of the swap: $\sum_{t=1}^TPV_0[\tilde{r}_1(t-1)\ at\ t]$\\
+Swap rate:
+$r_S = \dfrac{\sum_{t=1}^TB_t\cdot f_t}{\sum_{u=1}^TB_u} = \sum_{t=1}^Tw_t\times f_t$, where weights $w_t$ are:
+$w_t=\dfrac{B_t}{\sum_{u=1}^TB_u}$\\
+Alternative formula:
+$r_s=\dfrac{1-B_T}{\sum_{u=1}^TB_U}$
+\subsection*{Options}
+$S$ underlying asset price (at time 0).\\
+$S_T$ underlying asset price (at time T).\\
+$B$ price of discount bond of par \$1 and maturity T ($B \leq 1$)\\
+$K$ strike (excercise) price.\\
+$T$ maturity (expriration) date.\\
+$C$ price of call with strike $K$ and maturity $T$.\\
+$P$ price of put with strike $K$ and maturity $T$.\\
+European call option payoff:
+$CF_T=max[0, S_T - K]$\\
+The net payoff is: $max[S_T-K, 0] - C(1+r)^T$\\
+Excercise value of a call is $S-K$.\\
+Excercise value of a put is $K-S$.\\
+Price bounds are: $max[S-KB,0] \leq C \leq S$\\
+Put-Call parity: $C + BK = P + S$
+\subsection*{Corporate securities as options}
+Equity (E): A call option on firm's assets (A) with $K$ equal to its bond's redemption value.\\
+Debt (D): A portfolio of firm's assets (A) and a short position in the call with $K$ equial to bond's face value $F$.\\
+Warrant: Call option on firm's stock, with stock dilution as a result of excercise.\\
+Convertible bond: A portfolio of straight bonds and a call on the firm's stock with $K$ related to the conversion ratio.\\
+Callable bond: A portfolio combining straight bonds and a short position in a call on these bonds.\\
+$A = D + E => D = A - E$\\
+$E \equiv max[0, A - F]$\\
+$D = A- E = A - max[0, A -F]$
