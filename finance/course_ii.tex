@@ -48,7 +48,7 @@ The net payoff is: $max[S_T-K, 0] - C(1+r)^T$\\
 Excercise value of a call is $S-K$.\\
 Excercise value of a put is $K-S$.\\
 Price bounds are: $max[S-KB,0] \leq C \leq S$\\
-Put-Call parity: $C + BK = P + S$
+Put-Call parity: $C + BK = P + S$, where $B$ is $e^{-rT}$ if continious compounding is used.
 \subsection*{Corporate securities as options}
 Equity (E): A call option on firm's assets (A) with $K$ equal to its bond's redemption value.\\
 Debt (D): A portfolio of firm's assets (A) and a short position in the call with $K$ equial to bond's face value $F$.\\
@@ -58,3 +58,57 @@ Callable bond: A portfolio combining straight bonds and a short position in a ca
 $A = D + E => D = A - E$\\
 $E \equiv max[0, A - F]$\\
 $D = A- E = A - max[0, A -F]$
+\subsection*{Binomial pricing: single period}
+$r$ is the interest rate\\
+Stock price change:\\
+\begin{tikzpicture}
+  \matrix (tree) [matrix of nodes,column sep=1.5cm]
+          {
+            & $S_u=uS_0$ \\
+            $S_0$ & \\
+             & $S_d=dS_0$ \\
+          };
+          \draw[->] (tree-2-1)--(tree-1-2);
+          \draw[->] (tree-2-1)--(tree-3-2);
+\end{tikzpicture}
+
+Riskless bond price change:\\
+\begin{tikzpicture}
+  \matrix (tree) [matrix of nodes,column sep=1.5cm]
+          {
+            & $B_0(1+r)$ \\
+            $B_0$ & \\
+             & $B_0(1+r)$ \\
+          };
+          \draw[->] (tree-2-1)--(tree-1-2);
+          \draw[->] (tree-2-1)--(tree-3-2);
+\end{tikzpicture}\\
+Need to solve system of qquations:\\
+$S_u\cdot a + (1+r)\cdot b = C_u \\ S_d\cdot a + (1+r)\cdot b = C_d$, \\
+where $a$ amount of stock shares (option's delta), $b$ dollars invested into riskless bond $B$, $C_u$ is payoff in up state, $C_d$ is payoff in down state, so current market value of the call option is: $C_0 = S_0\cdot a + b$.
+Alternative notation: \\
+$\delta uS_0 + b(1+r) = C_u \\ \delta dS_0 + b(1+r) = C_d$\\
+where unique solutions is:\\
+$\delta = \dfrac{C_u-C_d}{(u -d)S_0},\ b=\dfrac{1}{1+r}\cdot\dfrac{uC_d - dC_u}{(u-d)}$, so\\
+$C_0 = \delta S_0 + b = \dfrac{C_u-C_d}{u -d} + \dfrac{1}{1+r}\cdot\dfrac{uC_d - dC_u}{(u-d)}$\\
+\subsection*{Risk-neutral probability}
+$q_u = \dfrac{(1+r) -d}{u-d},\ q_d=\dfrac{u-(1+r)}{u-d}$\\
+$C_0=\dfrac{q_uC_u + q_dC_d}{1+r} = \dfrac{E^Q[C_T]}{1+r}$,\\ where
+$E^Q[\cdot]$ is expectation under risk-neutral probability $Q = (q, 1-q)$.
+\subsection*{State prices}
+$\phi_u=\dfrac{q}{1+r},\ \phi_d=\dfrac{1-q}{1+r}$
+\subsection*{Black-Scholes-Merton formula}
+$C_0=C(S_0,K,T,r,\sigma) = S_0N(x) - Ke^{-rT}N(x-\sigma\sqrt{T})$, where $x$ is: $x=\dfrac{ln\left(\dfrac{S_0}{Ke^{-rT}}\right)}{\sigma\sqrt{T}} + \dfrac{1}{2}\sigma\sqrt{T}$\\
+So option delta ($\delta$) becomes $N(x) = \dfrac{\partial C}{\partial S}$.\\
+$S_0\cdot N(x)$ is the dollar mount invested into stock.\\
+$Ke^{-rT}N(x-\sigma\sqrt{T})$ is the dollar amount borrowed.
+\subsection*{Put-Call parity with BSM formula}
+$C + BK = P + S => P = C + e^{-rT}K - S$\\
+$P = S\cdot N(x) - Ke^{-rT}N(x - \sigma\sqrt{T}) + e^{-rT}K-S$\\
+$P = -S(1-N(x)) + Ke^{-rT}(1-N(x-\sigma\sqrt{T}))$
+\subsection*{Option Greeks}
+Delta: $\delta = \dfrac{\partial C}{\partial S}$\\
+Omega: $\Omega = \dfrac{\partial C}{\partial S}\dfrac{S}{C}$\\
+Gamma: $\Gamma = \dfrac{\partial \delta}{\partial S} = \dfrac{\partial^2C}{\partial S^2}$\\
+Theta: $\Theta = \dfrac{\partial C}{\partial T}$\\
+Vega: $v = \dfrac{\partial C}{\partial \sigma}$
