@@ -96,7 +96,14 @@ $q_u = \dfrac{(1+r) -d}{u-d},\ q_d=\dfrac{u-(1+r)}{u-d}$\\
 $C_0=\dfrac{q_uC_u + q_dC_d}{1+r} = \dfrac{E^Q[C_T]}{1+r}$,\\ where
 $E^Q[\cdot]$ is expectation under risk-neutral probability $Q = (q, 1-q)$.
 \subsection*{State prices}
-$\phi_u=\dfrac{q}{1+r},\ \phi_d=\dfrac{1-q}{1+r}$
+$\phi_u=\dfrac{q}{1+r},\ \phi_d=\dfrac{1-q}{1+r}$\\
+Alternatively, solve the system:
+$$
+\begin{cases}
+S_0 = S_u\phi_u + S_d\phi_d\\
+\dfrac{1}{1+r_f} = \phi_u + \phi_d
+\end{cases}
+$$\\
 \subsection*{Black-Scholes-Merton formula}
 $C_0=C(S_0,K,T,r,\sigma) = S_0N(x) - Ke^{-rT}N(x-\sigma\sqrt{T})$, where $x$ is: $x=\dfrac{ln\left(\dfrac{S_0}{Ke^{-rT}}\right)}{\sigma\sqrt{T}} + \dfrac{1}{2}\sigma\sqrt{T}$\\
 So option delta ($\delta$) becomes $N(x) = \dfrac{\partial C}{\partial S}$.\\
@@ -112,3 +119,86 @@ Omega: $\Omega = \dfrac{\partial C}{\partial S}\dfrac{S}{C}$\\
 Gamma: $\Gamma = \dfrac{\partial \delta}{\partial S} = \dfrac{\partial^2C}{\partial S^2}$\\
 Theta: $\Theta = \dfrac{\partial C}{\partial T}$\\
 Vega: $v = \dfrac{\partial C}{\partial \sigma}$
+\subsection*{Portfolio with mean-variance preferences}
+NOTE: $\sigma \equiv SD$, $\sigma^2 = Variance$, $\sigma = \sqrt{Variance}$\\
+Optimization:\\
+(P): $Minimize_{\{w_1,_{\cdots},w_n\}} \sigma_P^2 = \sum_{i=1}^N\sum_{j=1}^Nw_iw_j\sigma_{ij}$, \\
+where $\sigma_{ij}$ is covariance between assets, $\sigma_P^2$ is portfolio variance.\\
+(1): $\sum_{i=1}^Nw_i = 1$\\
+(2): $\sum_{i=1}^Nw_i\bar{r}_i = \bar{r}_p$,\\
+where $\bar{r}_p$ is portfolio expected return.\\
+Sharpe Ratio: $SR \equiv \dfrac{\bar{r}_p - r_f}{\sigma_p}$, the higher the better.\\
+All portfolios on the CML (Capital Market Line), including Tangency Portfolio, have the highest Sharpe Ratio.
+\subsection*{Tangency portfolio analytics}
+$N$ risky assets, $i= 1, 2,_{\cdots},N$\\
+$\bar{r}$ vector of expected returns\\
+$\bar{x}$ vector of excess returns\\
+$\sum$ covariance matrix\\
+$l$ vector of 1 of size $(N\times1)$\\
+$w$ vector of portfolio weights of size $(N\times1)$\\
+so,\\
+$\bar{x} = \bar{r} - r_f\cdot l$,\\
+risk-free asset weight is $1-w'l$\\
+expected excess return on portfolio is $w'\bar{x}$\\
+$w'\sum w= \sum_{i=1}^N\sum_{j=1}^Nw_iw_j\sum_{ij}$ portfolio variance\\
+$w'\bar{x} = m$ portfolio expected excess return\\
+\subsection*{Solving with Langrange multipliers}
+$L = w'\sum w + 2\lambda(m -w'\bar{x})$\\
+First order condition (FOC): $\dfrac{\partial{L}}{\partial{w}} = 0$\\
+$2\sum w - 2\lambda\bar{x} = 0$ => Solution: $w_T=\lambda\sum^{-1}\bar{x}$\\
+Tangency portfolio weights on risky assets sum to one: $w_T'\cdot l = 1$, so need to find:\\
+$\lambda = \dfrac{1}{\bar{x}'\sum^{-1}\cdot l}$\\
+$w_T = \dfrac{1}{\bar{x}'\sum^{-1}\cdot l}\cdot\sum^{-1}\bar{x}$
+\subsection*{Asset contribution to portfolio}
+Portfolio return with risk-free asset:
+$\tilde{r}_p= \left(1-\sum_{i=1}^Nw_i\right)r_f + \sum_{i=1}^Nw_i\tilde{r}_i$\\
+$\tilde{r}_p=r_F+\sum_{i=1}^Nw_i(\tilde{r}_i-r_f)$\\
+Expected portfolio return:\\
+$\bar{r}_p = r_f + \sum_{i=1}^Nw_i(\bar{r}_i - r_f)$\\
+Risk premium of asset $i$:
+$\dfrac{\partial\bar{r}_p}{\partial w_i} = \bar{r}_i - r_f$\\
+Variance of portfolio return:\\
+$\sigma_p^2=\sum_{i=1}^N\sum_{j=1}^Nw_iw_j\sigma_{ij}$\\
+Marginal contribution of asset $i$ to portfolio variance $\sigma_p^2$:\\
+$\dfrac{\partial\sigma_P^2}{\partial w_i} = 2\cdot \sum_{j=1}^Nw_j\sigma_{ij} = \\ = 2Cov\left(\tilde{r}_i,\sum_{j=1}^Nw_j\tilde{r}_j\right) = \\ = 2Cov(\tilde{r}_i,\tilde{r}_p)$
+Marginal contribution of asset $i$ to portfolio standard deviation $\sigma_p$:\\
+$\dfrac{\partial\sigma_p}{\partial w_i} = \dfrac{\partial(\sigma_P^2)^{\frac{1}{2}}}{\partial w_i} = \dfrac{Cov(\tilde{r}_i,\tilde{r}_p)}{\sigma_p} = \dfrac{\sigma_{ip}}{\sigma_p}$\\
+Return to risk ratio $RRR_{ip}$:\\
+$RRR_{ip} = \dfrac{asset\ risk\ premium}{marginal\ asset\ contrib\ to\ SD} = \\ = \dfrac{\bar{r}_i-r_f}{(\sigma_{ip}/\sigma_p)}$\\
+For tangency portfolio:\\
+$RRR_{iT} = \dfrac{\bar{r}_i - r_f}{(\sigma_{iT}\sigma_T)} = \dfrac{\bar{r}_T-r_f}{\sigma_T} = SR_T$\\
+\subsection*{CAPM derivation}
+$MCAP_M = \sum_{i=1}^NMCAP_i$,\\
+$w_i = \dfrac{MCAP_i}{MCAP_M}$\\
+$\tilde{r}_i - r_f = \alpha_i + \beta_{iM}(\tilde{r}_M - r_f) + \tilde{\epsilon}_i$, where $\alpha$ is always 0, $E[\tilde{\epsilon}_i] = 0$ and $Cov[\tilde{r}_M, \tilde{\epsilon}_i] = 0$. $\sigma(\tilde{\epsilon}_i) = SD$ measures non-systematic risk.\\
+$SR_T=\sqrt{SR_M^2 + SR_P^2}$
+\subsection*{Leverage}
+$A = E + D$, so $\beta_A = \dfrac{E}{E+D}\beta_E + \dfrac{D}{E +D}\beta_D$
+$r_A = \dfrac{D}{E +D}r_D + \dfrac{E}{E+D}r_E$ \\ $WACC = w_Dr_D + w_Er_E$\\
+If CAPM holds and debt is riskless, so $\beta_D = 0$,\\
+$\beta_A = w_D\beta_D + (1-w_D)\beta_E = (1-w_D)\beta_E\\ or\ \beta_E = \dfrac{1}{1-w_D}\beta_A = \left(1+\dfrac{D}{E}\right)\beta_A$.\\
+Equity cost for levered firm is:\\ $r_E = r_A + \dfrac{D}{E}(r_A - r_D)$\\
+Unlevered firm $r_E$ compensates for business risk. Levered firm $r_E$ in addition compensates for finansial risk from leverage.
+\subsection*{Default and risk premium}
+$B$ zero-coupon bond face value\\
+$P$ zero-coupon bond current price\\
+$E[P]$ expected payoff\\
+$y_f$ risk-free yield to maturity\\
+Promised YTM: $y = \left(\dfrac{B}{P}\right)^{1/T} - 1$\\
+Expected YTM: $\bar{y} = \left(\dfrac{E[P]}{P}\right)^{1/T} - 1$\\
+Default premium = Promised YTM - Expected YTM\\
+Risk premium = Expected YTM - $y_f$\\
+With $\lambda$ as loss rate, $p$ as probability of default and $\bar{y}$ as yield for bonds of similar risk, promised yield $y$ to sell at face value is:\\
+$y=\dfrac{\bar{y} + p\lambda}{1-p\lambda}$
+\subsection*{Firm value with debt and taxes}
+$V_U = \dfrac{(1-\tau)X}{1+r_A}$\\
+$V_L = \dfrac{(1-\tau)X}{1+r_A} + \dfrac{\tau r_D D}{1+r_D} = V_U + \dfrac{\tau r_D D}{1+r_D}$\\
+$X$ pre tax cash flow
+$\tau$ corporate tax\\
+$\pi$ equity tax (dividend and capital gain)\\
+$\delta$ debt tax rate\\
+Equity holders CF: $(1-\pi)(1-\tau)(X-r_DD)$\\
+Debt holders CF: $(1-\delta)r_DD$\\
+Total after tax CF:\\ $(1-\pi)(1-\tau)X + [(1-\delta) - (1-\pi)(1-\tau)]r_DD$\\
+All equity firm discount rate: $(1-\pi)r_A$\\
+For debt discout rate is: $(1-\delta)r_D$\\

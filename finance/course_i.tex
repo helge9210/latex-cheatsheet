@@ -76,6 +76,7 @@ Standard deviation $STDEV.S()$ \\
 Covariance: \\ $cov = \dfrac{1}{T-1}\cdot \sum (r_A - \bar{r}_A)\cdot(r_B-\bar{r}_B)$ \\
 Corellation: $corr = \dfrac{cov}{SD(A)\cdot SD(B)}$\\
 Portfolio variance: \\
+$cov_{ij} = SD_i\cdot SD_j \cdot corr_{ij}$\\
 $Var[P_{AB}] = \sum w_i^2 \cdot SD_i^2 + \sum_{i\neq j} 2w_iw_j \cdot SD_iSD_j \cdot corr_{ij}$, \\
 $Var[P] = \dfrac{1}{n}\cdot SD^2 + \left(1-\dfrac{1}{n}\right)\cdot corr\cdot SD \cdot SD$, \\
 where $SD$ is an average standard deviation
@@ -104,7 +105,7 @@ $CF = (1-\tau)\cdot OpProfit + \tau\cdot Depreciation - CapEx - \Delta WC$
 Payback period\\
 Choose $S$ so $PB = S$, $\sum_{i=1}^S CF_i \geq - CF_0$ 
 Discounted payback period: \\
-$DPB = S$, $\sum_{i=1}^S \dfrac{CF_i}{(1+r)^i} \geq - CF_0$
+$DPB = S$, $\sum_{i=1}^S \dfrac{CF_i}{(1+r)^i} \geq - CF_0$\\
 Internal rate of return (IRR) must satisfy: \\
 $0 = CF_0 +\sum_i\dfrac{CF_i}{(1+IRR)^i}$ \\
 Payback Interval:\\
